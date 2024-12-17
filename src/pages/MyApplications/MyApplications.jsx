@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import useAuth from '../../hooks/useAuth';
+import axios from 'axios';
 
 const MyApplications = () => {
     const { user } = useAuth();
     const [jobs, setJobs] = useState([]);
 
     useEffect(() => {
-        fetch(`https://job-portal-server-flame.vercel.app/job-application?email=${user.email}`)
-            .then(res => res.json())
-            .then(data => setJobs(data))
+        // fetch(`http://localhost:5000/job-application?email=${user.email}`)
+        //     .then(res => res.json())
+        //     .then(data => setJobs(data))
+
+
+  
+
+        axios.get(`http://localhost:5000/job-application?email=${user.email}`)
+        .then(res=>console.log(setJobs(res.data)))
+
+
     }, [user.email])
 
     return (
